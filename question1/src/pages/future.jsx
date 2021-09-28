@@ -7,14 +7,33 @@ const Future = (props) => {
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        getSpotData().then(res => {
-            const spotList = res.filter(e => { return e.underlying === 'BTC' || e.underlying === 'ETH' })
-            setList(spotList)
-        })
+        getAPI()
+        setInterval(() => {
+            getAPI()
+        }, 10000);
     }, []);
+
+    const getAPI = () => getSpotData().then(res => {
+        const list = res
+            .filter(e => { return e.type === 'future' })
+            .filter(e => { return e.underlying === 'BTC' || e.underlying === 'ETH' })
+            .map(e => {
+                return {
+                    asset: e.name,
+                    change24h: e.change24h.toFixed(2),
+                    bid: e.bid,
+                    ask: e.ask,
+                    price: e.price,
+                    underlying_asset: e.underlying,
+                    volume: e.volumeUsd24h
+                }
+            });
+        setList(list);
+    })
 
     return (
         <Layout>
+            <br />
             <FtxTable data={list} />
         </Layout>
     )

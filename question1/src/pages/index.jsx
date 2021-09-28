@@ -1,15 +1,13 @@
 import * as React from 'react';
-import Layout from '../components/layout';
-import Navbar from '../components/navbar';
+import { navigate } from 'gatsby';
 
-const index = (props) => {
-    return (
-        <Layout>
-            <Navbar />
-        </Layout>
-    )
-}
+const Index = (props) => {
+    React.useEffect(() => {
+        navigate("/spot", { replace: true });
+    });
+    return <div></div>;
+};
 
-export default index
+export default Index
 
 

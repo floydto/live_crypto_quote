@@ -1,42 +1,32 @@
-import * as React from "react"
-import PropTypes from "prop-types"
-import { Link } from "gatsby"
+import React from 'react';
+import { Link } from 'gatsby';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Button from '@mui/material/Button';
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `black`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-)
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
+function Header() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" style={{ background: '#001E3C' }}>
+        <Toolbar variant="dense">
+          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 1 }}>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit" component="div">
+            <ButtonGroup variant="outlined" aria-label="outlined button group" style={{ background: '#001E3C' }}>
+              <Button component={Link} to="/spot" variant="contained" style={{ background: '#001E3C' }}>Spot</Button>
+              <Button component={Link} to="/future" variant="contained" style={{ background: '#001E3C' }}>future</Button>
+            </ButtonGroup>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
 }
 
 export default Header
