@@ -20,7 +20,7 @@ const Future = (props) => {
             .map(e => {
                 return {
                     asset: e.name,
-                    change24h: e.change24h.toFixed(2),
+                    change24hr: e.change24h,
                     bid: e.bid,
                     ask: e.ask,
                     price: e.price,

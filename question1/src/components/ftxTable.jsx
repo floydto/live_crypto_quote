@@ -7,37 +7,36 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+
 
 
 const FtxTable = (props) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+    console.log(props.data);
+
     const columns = [
         { id: 'asset', label: 'Asset / Contract name', align: 'center', minWidth: 20 },
-        { id: 'change24h', label: '24-Hour Change', align: 'center', minWidth: 20 },
+        { id: 'change24hr', label: '24-Hour Change', align: 'center', minWidth: 20, format: (value) => Math.round(value * 100 * 100) / 100 + "%" },
         { id: 'bid', label: 'Bid', align: 'center', minWidth: 20 },
         {
             id: 'ask',
             label: 'Ask',
             align: 'center',
-            format: (value) => value.toLocaleString('en-US'),
             minWidth: 20
         },
         {
             id: 'price',
             label: 'Price',
             align: 'center',
-            format: (value) => value.toLocaleString('en-US'),
             minWidth: 20
         },
         {
             id: 'underlying_asset',
             label: 'Underlying Asset',
             align: 'center',
-            minWidth: 10,
+            minWidth: 20,
             format: (value) => value.toLocaleString('en-US')
         },
         {
@@ -54,15 +53,23 @@ const FtxTable = (props) => {
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
+        setRowsPerPage(event.target.value);
         setPage(0);
     };
 
+    const percentageStyle = (change, columnId) => {
+        if (columnId === "change24hr") {
+            return ({ color: change === 0 ? 'grey' : change > 0 ? 'green' : 'red' })
+
+        } else { return {} }
+    }
+
+
     return (
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <Paper sx={{ width: '100%', overflow: '' }}>
             <TableContainer sx={{ maxHeight: 500 }}>
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
+                <Table stickyHeader aria-label="sticky table" >
+                    <TableHead >
                         <TableRow >
                             {columns.map((column) => (
                                 <TableCell
@@ -87,9 +94,11 @@ const FtxTable = (props) => {
                                                 <TableCell
                                                     key={column.id}
                                                     align={column.align}>
-                                                    {column.format && typeof value === 'number'
-                                                        ? column.format(value)
-                                                        : value}
+                                                    <div style={percentageStyle(value, column.id)}>
+                                                        {column.format && typeof value === 'number'
+                                                            ? column.format(value)
+                                                            : value}
+                                                    </div>
                                                 </TableCell>
                                             );
                                         })}
@@ -108,7 +117,7 @@ const FtxTable = (props) => {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-        </Paper>
+        </Paper >
     );
 }
 

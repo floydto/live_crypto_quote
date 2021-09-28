@@ -20,6 +20,7 @@ const Spot = (props) => {
             .map(e => {
                 return {
                     asset: e.name,
+                    change24hr: e.change24h,
                     bid: e.bid,
                     ask: e.ask,
                     price: e.price,
@@ -35,7 +36,6 @@ const Spot = (props) => {
     return (
         <Layout>
             <br />
-
             <FtxTable data={list} />
         </Layout>
     )
