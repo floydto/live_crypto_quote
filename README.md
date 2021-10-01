@@ -1,8 +1,6 @@
-# arrokoth_ventures_questions
+# HK Crypto Free Real-time Quote  
 
 please install the chrome cors extension before using this website.
-
-HK Crypto Free Real-time Quote  
 
 #The underlying asset is consist of the following: BTC, ETH  
 
